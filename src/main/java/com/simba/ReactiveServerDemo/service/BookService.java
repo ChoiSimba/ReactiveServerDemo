@@ -24,14 +24,14 @@ public class BookService {
         );
     }
 
-    public Mono<Book> getMono(int bookIndex) {
+    public Mono<Book> getBook(int bookIndex) {
         return Mono.fromSupplier(() -> books.get(bookIndex))
                 .delayElement(Duration.ofSeconds(2))
                 .log()
                 ;
     }
 
-    public Flux<Book> getFlux() {
+    public Flux<Book> getBooks() {
         return Flux.fromIterable(books)
                 .delayElements(Duration.ofSeconds(1))
                 .log()
