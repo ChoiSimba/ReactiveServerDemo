@@ -25,8 +25,14 @@ public class BookController {
         return bookService.getMono(bookIndex);
     }
 
+    @GetMapping("/bookBlocking/{bookIndex}")
+    public Book getBookBlocking(@PathVariable("bookIndex") int bookIndex) {
+        return bookService.getMonoBlocking(bookIndex);
+    }
+
     @GetMapping("/books")
     public Flux<Book> getBooks() {
         return bookService.getFlux();
     }
+
 }

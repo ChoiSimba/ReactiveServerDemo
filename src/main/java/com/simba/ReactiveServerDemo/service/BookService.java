@@ -31,10 +31,16 @@ public class BookService {
                 ;
     }
 
+    public Book getMonoBlocking(int bookIndex) {
+        return getMono(bookIndex).block();
+
+    }
+
     public Flux<Book> getFlux() {
         return Flux.fromIterable(books)
                 .delayElements(Duration.ofSeconds(1))
                 .log()
                 ;
     }
+
 }
