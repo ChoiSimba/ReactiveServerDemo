@@ -20,16 +20,25 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @GetMapping("/book/{bookIndex}")
-    public Mono<Book> getBook(@PathVariable("bookIndex") int bookIndex) {
-        return bookService.getMono(bookIndex);
+    /**
+     * Mono 비동기
+     */
+    @GetMapping("/bookAsync/{bookIndex}")
+    public Mono<Book> getBookAsync(@PathVariable("bookIndex") int bookIndex) {
+        return bookService.getMonoAsync(bookIndex);
     }
 
-    @GetMapping("/bookBlocking/{bookIndex}")
-    public Book getBookBlocking(@PathVariable("bookIndex") int bookIndex) {
-        return bookService.getMonoBlocking(bookIndex);
+    /**
+     * Mono 동기
+     */
+    @GetMapping("/bookSync/{bookIndex}")
+    public Book getBookSync(@PathVariable("bookIndex") int bookIndex) {
+        return bookService.getMonoSync(bookIndex);
     }
 
+    /**
+     * Flux 비동기
+     */
     @GetMapping("/books")
     public Flux<Book> getBooks() {
         return bookService.getFlux();

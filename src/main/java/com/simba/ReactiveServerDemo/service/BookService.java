@@ -15,7 +15,9 @@ import reactor.core.publisher.Mono;
 public class BookService {
     private List<Book> books;
 
-
+    /**
+     * 임시 테스트데이터
+     */
     BookService() {
         books = Arrays.asList(
                 new Book("Spring 5", "인사이트", 50_000),
@@ -24,18 +26,27 @@ public class BookService {
         );
     }
 
-    public Mono<Book> getMono(int bookIndex) {
+    /**
+     * Mono 비동기
+     */
+    public Mono<Book> getMonoAsync(int bookIndex) {
         return Mono.fromSupplier(() -> books.get(bookIndex))
                 .delayElement(Duration.ofSeconds(2))
                 .log()
                 ;
     }
 
-    public Book getMonoBlocking(int bookIndex) {
-        return getMono(bookIndex).block();
+    /**
+     * Mono 동기
+     */
+    public Book getMonoSync(int bookIndex) {
+        return getMonoAsync(bookIndex).block();
 
     }
 
+    /**
+     * Flux 비동기
+     */
     public Flux<Book> getFlux() {
         return Flux.fromIterable(books)
                 .delayElements(Duration.ofSeconds(1))
